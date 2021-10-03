@@ -1,0 +1,64 @@
+version: "3"
+services:
+  startups_elasticsearch:
+    # 下の1行でも環境構築は出来るが、日本語を扱うときに必要なプラグイン(kuromoji)を入れるために、
+    # elasticsearch用のDockerfileを作成
+    # image: docker.elastic.co/elasticsearch/elasticsearch:7.10.1
+    build:
+      context: .
+      dockerfile: Dockerfile-elasticsearch
+    environment:
+      - discovery.type=single-node
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - 9200:9200
+    volumes:
+      - startups_es:/usr/share/elasticsearch/data
+  # kibana:
+  #   # elasticsearchとkibanaのimageのバージョン番号を一致
+  #   image: docker.elastic.co/kibana/kibana:7.10.1
+  #   ports:
+  #     - 5601:5601
+  #   depends_on:
+  #     - startups_elasticsearch
+  startups_db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - '3306:3306'
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - startups_mysql:/var/lib/mysql
+  web:
+    build: .
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - .:/startups
+    ports:
+      - "3000:3000"
+    depends_on:
+      - startups_db
+      - startups_elasticsearch
+    stdin_open: true
+    tty: true
+  startups_redis:
+    image: "redis:alpine"
+    ports:
+      - 6381:6379
+    volumes:
+      - startups_redis:/data
+    command: redis-server --appendonly yes
+
+# volume : コンテナのライフサイクルが終了した後でもデータを保管しておける領域
+# 名前をつけて定義 ( https://www.ogis-ri.co.jp/otc/hiroba/technical/docker/part4.html )
+volumes:
+  startups_es:
+  startups_mysql:
+  startups_redis:
