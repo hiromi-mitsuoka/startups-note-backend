@@ -9,10 +9,6 @@ namespace :article do
     feed = Feedjira.parse(xml)
     articles = []
     feed.entries.each do |f|
-      # p article.title
-      # p article.url
-      # p article.published
-      # p article.categories
       article = Article.new(
         title: f.title,
         url: f.url,
@@ -25,6 +21,7 @@ namespace :article do
     columns = %i[id title url published categories]
     Article.import columns, articles, on_duplicate_key_update: %i[title]
   end
+  p "DONE"
 end
 
 # 実行コマンド : bundle exec rake article:crawl
