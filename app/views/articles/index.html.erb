@@ -1,0 +1,19 @@
+<section style="max-width: 1000px">
+  <h1>News List</h1>
+  <div>
+    <% @articles.each do |article| %>
+      <div style="
+        width: 90%;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        margin: 10px;
+        padding: 10px
+        word-break: break-all;
+      ">
+        <h4><%= link_to article.title, article.url %></h4>
+        <%= article.published %>
+        <%= article.categories %>
+      </div>
+    <% end %>
+  </div>
+</section>
