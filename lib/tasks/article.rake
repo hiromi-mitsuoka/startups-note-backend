@@ -13,7 +13,7 @@ namespace :article do
     # medium_id: medium.id を記述しないと、記事登録されない&エラーにならない
     begin
       Medium.all.each do |medium|
-        xml = HTTParty.get(medium.url).body
+        xml = HTTParty.get(medium.rss).body
         feed = Feedjira.parse(xml)
         feed.entries.each do |f|
           # 重複している記事はスキップ

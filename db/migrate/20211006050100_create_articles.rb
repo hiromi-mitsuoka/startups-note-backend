@@ -6,7 +6,8 @@ class CreateArticles < ActiveRecord::Migration[6.1]
       t.string :url
       t.string :image
       t.date :published
-      t.string :categories
+      # TechCrunch用に512バイトに変更
+      t.string :categories, limit: 512
 
       t.timestamps
     end

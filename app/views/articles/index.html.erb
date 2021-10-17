@@ -1,6 +1,15 @@
 <section style="max-width: 1000px">
   <h1>News List</h1>
   <div>
+    <%# 一時的に表示 %>
+    <hr>
+    <h2>MEDIA</h2>
+    <% Medium.all.each do |m| %>
+      <%= link_to m.name, m.url %><br />
+    <% end %>
+    <hr>
+  </div>
+  <div>
     <% @articles.each do |article| %>
       <div style="
         width: 90%;

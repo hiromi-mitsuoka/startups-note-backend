@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2021_10_06_052418) do
     t.string "url"
     t.string "image"
     t.date "published"
-    t.string "categories"
+    t.string "categories", limit: 512
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["medium_id"], name: "index_articles_on_medium_id"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 2021_10_06_052418) do
   create_table "media", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.string "url"
+    t.string "rss"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
