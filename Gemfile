@@ -6,9 +6,14 @@ ruby '2.7.1'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.4', '>= 6.1.4.1'
 
+# bulk insert
+gem 'activerecord-import'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
+gem 'feedjira'
 gem 'hotwire-rails'
+# feedjiraのバージョンが上がったことで必要になった
+gem 'httparty'
 gem 'importmap-rails'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
