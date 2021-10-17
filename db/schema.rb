@@ -13,18 +13,20 @@
 ActiveRecord::Schema.define(version: 2021_10_06_052418) do
 
   create_table "articles", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "medium_id"
     t.string "title"
     t.string "url"
+    t.string "image"
     t.date "published"
     t.string "categories"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["medium_id"], name: "index_articles_on_medium_id"
   end
 
   create_table "media", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.string "url"
-    t.string "rss"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

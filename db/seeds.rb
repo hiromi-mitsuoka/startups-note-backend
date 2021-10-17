@@ -1,6 +1,6 @@
 Medium.create!(
-  name: "Crunchbase",
-  url: "https://www.crunchbase.com",
+  name: "Crunchbase news",
+  url: "https://news.crunchbase.com/feed/",
 )
 
-p DONE
+p "DONE"
