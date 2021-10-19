@@ -6,14 +6,19 @@ ruby '2.7.1'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.4', '>= 6.1.4.1'
 
-# bulk insert
+# bulk insert : https://github.com/zdennis/activerecord-import
 gem 'activerecord-import'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
+# job quere : https://github.com/collectiveidea/delayed_job
+gem 'delayed_job_active_record'
+# rss : https://github.com/feedjira/feedjira
 gem 'feedjira'
+# https://github.com/hotwired
 gem 'hotwire-rails'
-# feedjiraのバージョンが上がったことで必要になった
+# feedjiraのバージョンアップにより追加
 gem 'httparty'
+# https://github.com/rails/importmap-rails
 gem 'importmap-rails'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
