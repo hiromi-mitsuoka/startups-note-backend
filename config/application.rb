@@ -36,5 +36,8 @@ module Startups
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # api
+    config.api_only = false
   end
 end

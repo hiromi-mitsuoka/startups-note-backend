@@ -26,6 +26,8 @@ gem 'jbuilder', '~> 2.7'
 gem 'mysql2', '~> 0.5'
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
+# https://github.com/cyu/rack-cors
+gem 'rack-cors'
 # Use Redis adapter to run Action Cable in production
 gem 'redis', '~> 4.0'
 # Use SCSS for stylesheets
