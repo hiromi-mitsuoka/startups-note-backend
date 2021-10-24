@@ -24,6 +24,8 @@ gem 'importmap-rails'
 gem 'jbuilder', '~> 2.7'
 # Use mysql as the database for Active Record
 gem 'mysql2', '~> 0.5'
+# https://github.com/rubysherpas/paranoia
+gem 'paranoia'
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
 # https://github.com/cyu/rack-cors
