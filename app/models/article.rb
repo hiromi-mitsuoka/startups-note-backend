@@ -1,6 +1,8 @@
 class Article < ApplicationRecord
   # 論理削除
   acts_as_paranoid
+  # Elasticsearch
+  include ArticlesSearchable
 
   belongs_to :medium
 
