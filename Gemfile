@@ -12,6 +12,9 @@ gem 'activerecord-import'
 gem 'bootsnap', '>= 1.4.4', require: false
 # job quere : https://github.com/collectiveidea/delayed_job
 gem 'delayed_job_active_record'
+# https://github.com/elastic/elasticsearch-rails
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
 # rss : https://github.com/feedjira/feedjira
 gem 'feedjira'
 # https://github.com/hotwired

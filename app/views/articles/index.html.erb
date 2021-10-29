@@ -1,5 +1,13 @@
 <section style="max-width: 1000px">
-  <h1>News List</h1>
+  <div>
+    <h1>News List</h1>
+    <div>
+      <%= form_tag(articles_path, method: :get) do %>
+        <%= text_field_tag :search_query, @search_query, placeholder: "Search articles" %>
+        <%= submit_tag "Search" %>
+      <% end %>
+    </div>
+  </div>
   <div>
     <%# 一時的に表示 %>
     <hr>

@@ -74,13 +74,46 @@ GEM
     delayed_job_active_record (4.1.6)
       activerecord (>= 3.0, < 6.2)
       delayed_job (>= 3.0, < 5)
+    elasticsearch (7.15.0)
+      elasticsearch-api (= 7.15.0)
+      elasticsearch-transport (= 7.15.0)
+    elasticsearch-api (7.15.0)
+      multi_json
+    elasticsearch-model (7.2.0)
+      activesupport (> 3)
+      elasticsearch (~> 7)
+      hashie
+    elasticsearch-rails (7.2.0)
+    elasticsearch-transport (7.15.0)
+      faraday (~> 1)
+      multi_json
     erubi (1.10.0)
+    faraday (1.8.0)
+      faraday-em_http (~> 1.0)
+      faraday-em_synchrony (~> 1.0)
+      faraday-excon (~> 1.1)
+      faraday-httpclient (~> 1.0.1)
+      faraday-net_http (~> 1.0)
+      faraday-net_http_persistent (~> 1.1)
+      faraday-patron (~> 1.0)
+      faraday-rack (~> 1.0)
+      multipart-post (>= 1.2, < 3)
+      ruby2_keywords (>= 0.0.4)
+    faraday-em_http (1.0.0)
+    faraday-em_synchrony (1.0.0)
+    faraday-excon (1.1.0)
+    faraday-httpclient (1.0.1)
+    faraday-net_http (1.0.1)
+    faraday-net_http_persistent (1.2.0)
+    faraday-patron (1.0.0)
+    faraday-rack (1.0.0)
     feedjira (3.2.0)
       loofah (>= 2.3.1)
       sax-machine (>= 1.0)
     ffi (1.15.4)
     globalid (0.5.2)
       activesupport (>= 5.0)
+    hashie (4.1.0)
     hotwire-rails (0.1.3)
       rails (>= 6.0.0)
       stimulus-rails
@@ -111,7 +144,9 @@ GEM
     mini_portile2 (2.6.1)
     minitest (5.14.4)
     msgpack (1.4.2)
+    multi_json (1.15.0)
     multi_xml (0.6.0)
+    multipart-post (2.1.1)
     mysql2 (0.5.3)
     nio4r (2.5.8)
     nokogiri (1.12.5)
@@ -160,6 +195,7 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     redis (4.5.1)
+    ruby2_keywords (0.0.5)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
     sassc (2.4.0)
@@ -205,6 +241,8 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   byebug
   delayed_job_active_record
+  elasticsearch-model
+  elasticsearch-rails
   feedjira
   hotwire-rails
   httparty
