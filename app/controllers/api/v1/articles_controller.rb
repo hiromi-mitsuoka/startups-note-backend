@@ -1,9 +1,8 @@
 class Api::V1::ArticlesController < Api::ApplicationController
   def index
-    # 後々Elasticsearchで返す
-    # redis設定する
-    articles = if @search_query.present?
-                 Article.es_search(@search_query).records
+    # TODO: redis設定する
+    articles = if search_query.present?
+                 Article.es_search(search_query).records
                else
                  Article.all.order(id: :desc)
                end

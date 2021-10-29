@@ -3,10 +3,10 @@ class ArticlesController < ApplicationController
     # 後々Elasticsearchで返す
     # redis設定する
     @articles = if search_query.present?
-                 Article.es_search(search_query).records
-               else
-                 Article.all.order(id: :desc)
-               end
+                  Article.es_search(search_query).records
+                else
+                  Article.all.order(id: :desc)
+                end
     # articles = Article.all.order(id: :desc)
   end
 
