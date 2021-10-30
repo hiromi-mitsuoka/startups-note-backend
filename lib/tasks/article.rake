@@ -28,7 +28,6 @@ namespace :article do
           # 記事によっては、タグの名前が変わる可能性あり
           # NOTE: techcrunchとnews.crunchbaseは変更する必要なかった。
           article = Article.new(
-            # id: article_id,
             medium_id: medium.id,
             title: f.title,
             url: f.url,

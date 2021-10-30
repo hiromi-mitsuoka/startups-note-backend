@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 2021_10_30_033029) do
   create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.integer "used_query", default: 0, null: false
+    t.integer "used_articles", default: 1, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
