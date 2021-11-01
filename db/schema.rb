@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_24_055052) do
+ActiveRecord::Schema.define(version: 2021_10_30_033029) do
 
   create_table "articles", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "medium_id"
@@ -24,6 +24,14 @@ ActiveRecord::Schema.define(version: 2021_10_24_055052) do
     t.datetime "deleted_at"
     t.index ["deleted_at"], name: "index_articles_on_deleted_at"
     t.index ["medium_id"], name: "index_articles_on_medium_id"
+  end
+
+  create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "used_query", default: 0, null: false
+    t.integer "used_articles", default: 1, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "delayed_jobs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
