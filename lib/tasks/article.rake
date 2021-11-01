@@ -44,6 +44,7 @@ namespace :article do
     p "DONE"
   end
 
+  # 新しく入る記事のみカテゴリの使用回数をカウントアップ
   task crawl_and_extract_categories: :environment do
     articles = []
 

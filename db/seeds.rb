@@ -16,4 +16,6 @@ Medium.create!(
   rss: "https://techcrunch.com/feed/",
 )
 
-p "DONE"
+p "Created 3 new media"
+
+# コマンド : rails db:seed
