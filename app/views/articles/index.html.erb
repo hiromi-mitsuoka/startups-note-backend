@@ -20,9 +20,9 @@
   <div style="display: flex; justify-content: space-between;">
     <div style="width: 20%">
       <%# 一時的に表示 %>
-      <h2>Categories</h2>
+      <h2>Categories(30)</h2>
       <% @categories.each do |category| %>
-        <p><%= category.name %></p>
+        <p><%= category.name %> (<%= category.used_articles %>)</p>
       <% end %>
     </div>
     <div style="width: 70%">

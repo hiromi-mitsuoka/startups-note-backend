@@ -1,4 +1,8 @@
 namespace :category do
+
+  # 運用上、全記事確認して、あるカテゴリーが何回出て、
+  # それがcategory.used_articlesと一致しているか確認できるrakeタスクorメソッドがあったら良さそう
+
   # 運用していく上では、記事取得時にやるべきなため、このファイルはadhocにすべき？
   desc "Extract category from articles"
   task extract: :environment do
@@ -12,7 +16,7 @@ namespace :category do
       articles.each do |article|
         # ? : 最短一致
         article.categories.scan(/"(.+?)\"/).each do |category|
-        tmp_categories << category[0]
+          tmp_categories << category[0]
         end
       end
       tmp_categories.uniq!
@@ -28,7 +32,7 @@ namespace :category do
 
       columns = %i[id name used_query used_articles]
       Category.import columns, insert_categories
-      p "Imported #{insert_categories.size} records"
+      p "Imported #{insert_categories.size} categories"
     rescue => e
       p e.message
     end
