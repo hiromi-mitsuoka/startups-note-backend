@@ -2,4 +2,4 @@ FROM docker.elastic.co/elasticsearch/elasticsearch:7.10.1
 # 日本語をあつかうときに使うプラグイン
 RUN bin/elasticsearch-plugin install analysis-kuromoji
 # 国際的に規約されてる文字の解析器
-RUN bin/elasticsearch-plugin install analysis-icudocker
+RUN bin/elasticsearch-plugin install analysis-icu
