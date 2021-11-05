@@ -50,7 +50,16 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  <<: *default
+  # <<: *default
   database: startups_production
-  username: startups
-  password: <%= ENV['STARTUPS_DATABASE_PASSWORD'] %>
+  adapter: mysql2
+  encoding: utf8mb4
+  charset: utf8mb4
+  collation: utf8mb4_general_ci
+  # username: startups
+  username: <%= Rails.application.credentials.db[:user_name] %>
+  # password: <%= ENV['STARTUPS_DATABASE_PASSWORD'] %>
+  password: <%= Rails.application.credentials.db[:password] %>
+  host: <%= Rails.application.credentials.db[:endpoint] %>
+  pool: 20
+  timeout: 1000
