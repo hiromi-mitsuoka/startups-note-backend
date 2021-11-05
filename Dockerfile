@@ -9,6 +9,8 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
 # apt-get [スイッチ] [オプション] [パッケージ] : Debian系のディストリビューション（DebianやUbuntu）のパッケージ管理システムであるAPT(Advanced Package Tool)ライブラリを利用してパッケージの操作・管理を行うLinuxコマンド
 # オプション -qq : エラー以外は表示しない( http://www.ne.jp/asahi/it/life/it/linux/linux_command/linux_apt-get.html )
 RUN apt-get update -qq && apt-get install -y nodejs yarn
+# credentials:editを利用するためにvimをdockerに追加
+RUN apt-get install -y vim
 RUN mkdir /startups
 WORKDIR /startups
 
