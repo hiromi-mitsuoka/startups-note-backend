@@ -36,6 +36,3 @@ terraform.tfstate.backup
 
 # Ignore because exceeds file size for git push
 /terraform/.terraform/providers/*
-
-# Ignore test for move
-.terraform
