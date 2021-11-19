@@ -3,6 +3,7 @@
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
     origins 'http://localhost:3001' # front
+    # origins "*" # TODO: セキュリティ面確認、3000port閉じた関係で変更
 
     resource '*',
       headers: :any,

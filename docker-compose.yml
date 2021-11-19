@@ -39,18 +39,33 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     volumes:
       - startups_mysql:/var/lib/mysql
-  web:
+  web: # TODO: 名前変更
     build: .
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    # command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'" && bundle exec puma -C config/puma.rb # 両方繋ぐことを試みる（frontへのapiで3000port開けている）: 両方繋がらず
+    # command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'" # 3000portのみ
+    command: bundle exec puma -C config/puma.rb # nginxとソケット通信のみ
     volumes:
       - .:/startups
-    ports:
-      - "3000:3000"
+      - public-data:/startups/public
+      - tmp-data:/startups/tmp
+      - log-data:/startups/log
+    # ports:
+    #   - "3000:3000"
     depends_on:
       - startups_db
       - startups_elasticsearch
     stdin_open: true
     tty: true
+  nginx:
+    build:
+      context: nginx
+    volumes:
+      - public-data:/startups/public
+      - tmp-data:/startups/tmp
+    ports:
+      - 80:80
+    depends_on:
+      - web
   startups_redis:
     image: "redis:alpine"
     ports:
@@ -65,3 +80,6 @@ volumes:
   startups_es:
   startups_mysql:
   startups_redis:
+  public-data:
+  tmp-data:
+  log-data:
