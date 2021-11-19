@@ -51,7 +51,7 @@ test:
 #
 production:
   # <<: *default
-  database: startups_production
+  database: startups
   adapter: mysql2
   encoding: utf8mb4
   charset: utf8mb4

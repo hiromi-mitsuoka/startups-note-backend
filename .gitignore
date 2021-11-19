@@ -27,3 +27,15 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+# Ignore regardless of directory becouse password is opened.
+.env
+terraform.tfvars
+terraform.tfstate
+terraform.tfstate.backup
+
+# Ignore because exceeds file size for git push
+/terraform/.terraform/providers/*
+
+# Ignore test for move
+.terraform

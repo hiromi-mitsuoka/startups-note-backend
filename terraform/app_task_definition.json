@@ -1,0 +1,78 @@
+[
+  {
+    "name": "startups-app-including-bundler-11180755",
+    "image": "825241083767.dkr.ecr.ap-northeast-1.amazonaws.com/startups-app-including-bundler-11180755",
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "/ecs/startups",
+        "awslogs-region": "ap-northeast-1",
+        "awslogs-stream-prefix": "production"
+      }
+    },
+    "environment": [
+      {
+        "name": "DATABASE_HOST",
+        "value": "startups.ck7exojmykti.ap-northeast-1.rds.amazonaws.com"
+      },
+      {
+        "name": "DATABASE_NAME",
+        "value": "startups"
+      },
+      {
+        "name": "DATABASE_PASSWORD",
+        "value": "UkgVUAG8"
+      },
+      {
+        "name": "DATABASE_USERNAME",
+        "value": "startups"
+      },
+      {
+        "name": "RAILS_ENV",
+        "value": "production"
+      },
+      {
+        "name": "RAILS_MASTER_KEY",
+        "value": "60615fdc337e7617f477f387c00ae9bb"
+      },
+      {
+        "name": "TZ",
+        "value": "Japan"
+      }
+    ],
+    "command": [
+      "bash",
+      "-c",
+      "bundle exec rails db:create && bundle exec rails db:migrate && bundle exec rails assets:precompile && bundle exec puma -C config/puma.rb"
+    ],
+    "workingDirectory": "/startups",
+    "essential": true
+  },
+  {
+    "name": "startups-nginx-11180755",
+    "image": "825241083767.dkr.ecr.ap-northeast-1.amazonaws.com/startups-nginx-11180755",
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "secretOptions": null,
+      "options": {
+        "awslogs-group": "/ecs/startups",
+        "awslogs-region": "ap-northeast-1",
+        "awslogs-stream-prefix": "production"
+      }
+    },
+    "portMappings": [
+      {
+        "protocol": "tcp",
+        "containerPort": 80
+      }
+    ],
+    "workingDirectory": "/startups",
+    "volumesFrom": [
+      {
+        "sourceContainer": "startups-app-including-bundler-11180755",
+        "readOnly": false
+      }
+    ],
+    "essential": true
+  }
+]

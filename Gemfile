@@ -37,6 +37,8 @@ gem 'rack-cors'
 gem 'redis', '~> 4.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
+# ECSで、Could not find turbo-rails-7.1.1発生のため指定。bundle update turbo-railsで対応
+gem 'turbo-rails', '~> 0.8'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
