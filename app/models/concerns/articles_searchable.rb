@@ -51,16 +51,16 @@ module ArticlesSearchable
 
     def es_search(query)
       __elasticsearch__.search({
-        query: {
-          multi_match: { # https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-multi-match-query.html
-            # TODO: 重み付けをしたい
-            fields: %i(title^3 categories medium_name),
-            type: 'cross_fields', # https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-multi-match-query.html#type-cross-fields
-            query: query,
-            operator: 'or',
-          }
-        }
-      })
+                                 query: {
+                                   multi_match: { # https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-multi-match-query.html
+                                                  # TODO: 重み付けをしたい
+                                                  fields: %i(title^3 categories medium_name),
+                                                  type: 'cross_fields', # https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-multi-match-query.html#type-cross-fields
+                                                  query: query,
+                                                  operator: 'or',
+                                   }
+                                 }
+                               })
     end
   end
 end
@@ -75,8 +75,6 @@ end
 
 # データ投入
 # Article.__elasticsearch__.import
-
-
 
 # Elasticsearchコンテナでの操作
 
