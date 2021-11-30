@@ -32,12 +32,14 @@ gem 'turbo-rails', '~> 0.8' # ECSで、Could not find turbo-rails-7.1.1発生の
 group :development, :test do
   # gem 'active_decorator-rspec' # https://github.com/mizoR/active_decorator-rspec
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw] # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  # gem 'debase' # https://github.com/ruby-debug/debase
   gem 'factory_bot_rails' # https://github.com/thoughtbot/factory_bot_rails
-  gem 'pry-byebug' # https://github.com/deivid-rodriguez/pry-byebug
-  gem 'pry-doc' # https://github.com/pry/pry-doc
-  gem 'pry-rails' # https://github.com/pry/pry-rails
-  gem 'pry-stack_explorer' # https://github.com/pry/pry-stack_explorer
+  # gem 'pry-byebug' # https://github.com/deivid-rodriguez/pry-byebug
+  # gem 'pry-doc' # https://github.com/pry/pry-doc
+  # gem 'pry-rails' # https://github.com/pry/pry-rails
+  # gem 'pry-stack_explorer' # https://github.com/pry/pry-stack_explorer
   gem 'rspec-rails' # https://github.com/rspec/rspec-rails
+  # gem 'ruby-debug-ide' # https://github.com/ruby-debug/ruby-debug-ide
 end
 
 group :development do
