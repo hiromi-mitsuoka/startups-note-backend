@@ -4,6 +4,9 @@ class ArticlesController < ApplicationController
     @media = Medium.all
     # 後々Elasticsearch削除。ransack導入
     # redis設定する
+
+    # binding.pry
+
     @articles = if search_query.present?
                   Article.es_search(search_query).records
                 else
