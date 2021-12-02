@@ -26,7 +26,7 @@
       <% end %>
     </div>
     <div style="width: 70%">
-      <h2>Articles</h2>
+      <h2>Articles (<%= @articles.count %>)</h2>
       <div style="width: 100%; display: flex; justify-content: space-between; flex-wrap: wrap">
         <% @articles.each do |article| %>
           <div style="
