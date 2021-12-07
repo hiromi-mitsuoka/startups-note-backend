@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
   def index
-    @categories = Category.all.order(used_articles: "DESC").limit(30)
+    @categories = Category.all.order(used_articles: "DESC").limit(20)
     @media = Medium.all
     # 後々Elasticsearch削除。ransack導入
     # redis設定する
