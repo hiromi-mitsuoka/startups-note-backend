@@ -5,8 +5,10 @@ module ArticlesSearchable
     include Elasticsearch::Model
     include Elasticsearch::Model::Callbacks # 毎回更新がボトルネックになったら、バッチ処理・delayed_jobを考える
 
-    index_name "es_articles_#{Rails.env}"
-    # index_name "es_articles_#{Time.current.strftime("%Y_%m_%d")}"
+    index_name "es_articles_#{Rails.env}".downcase
+
+    # indexの張り替えで、切り替えがうまくできていないため、未使用
+    # index_name "es_articles_#{Time.current.strftime("%Y_%m_%d_%H_%M_%Z")}".downcase
 
     settings do
       mappings dynamic: 'false' do
@@ -82,16 +84,16 @@ end
 # curl -XGET 'localhost:9200/_cat/indices'
 
 # mapping確認
-# curl -XGET 'localhost:9200/es_articles_development/_mapping?pretty'
+# curl -XGET 'localhost:9200/<index_name>/_mapping?pretty'
 
 # 件数確認
-# curl -sS -XGET 'localhost:9200/es_articles_development/_doc/_count?pretty'
+# curl -sS -XGET 'localhost:9200/<index_name>/_doc/_count?pretty'
 
-# ドキュメント取得（id=50）
-# curl -XGET 'localhost:9200/es_articles_development/_doc/50?pretty'
+# ドキュメント取得（id=40）
+# curl -XGET 'localhost:9200/<index_name>/_doc/40?pretty'
 
 # search例
-# curl -H "Content-Type: application/json" -XGET "localhost:9200/es_articles_development/_search" -d'
+# curl -H "Content-Type: application/json" -XGET "localhost:9200/<index_name>/_search" -d'
 # {
 #   "query": {
 #     "term": {
@@ -100,7 +102,7 @@ end
 #   }
 # }'
 
-# curl -H "Content-Type: application/json" -XGET "localhost:9200/es_articles_development/_search" -d'
+# curl -H "Content-Type: application/json" -XGET "localhost:9200/<index_name>/_search" -d'
 # {
 #   "query": {
 #     "multi_match": {

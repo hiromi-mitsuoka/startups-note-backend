@@ -1,8 +1,8 @@
 version: "3"
 services:
+  # When changing the container name, config/initializers/elasticsearch.rb file must also be changed.
   startups_elasticsearch:
-    # 下の1行でも環境構築は出来るが、日本語を扱うときに必要なプラグイン(kuromoji)を入れるために、
-    # elasticsearch用のDockerfileを作成
+    # 下の1行でも環境構築は出来るが、日本語を扱うときに必要なプラグイン(kuromoji)を入れるために、elasticsearch用のDockerfileを作成
     # image: docker.elastic.co/elasticsearch/elasticsearch:7.10.1
     build:
       context: .
