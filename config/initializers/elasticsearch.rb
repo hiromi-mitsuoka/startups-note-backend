@@ -1,6 +1,8 @@
 config = {
-  host: "startups_elasticsearch:9200/", # 後ほどENV['ELASTICSEARCH_HOST'] || "startups_elasticsearch:9200/" などに置き換える
-  # https://qiita.com/yamashun/items/6ecaa6f161b4cf283db3
+  transport_options: {
+    request: { timeout: 30 }
+  }
 }
 
+config.merge!(YAML.load_file('config/elasticsearch.yml')[Rails.env].symbolize_keys) if File.exist?('config/elasticsearch.yml')
 Elasticsearch::Model.client = Elasticsearch::Client.new(config)

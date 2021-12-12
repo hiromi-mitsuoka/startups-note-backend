@@ -1,0 +1,7 @@
+development: &default
+  host: 'startups_elasticsearch:9200'
+test:
+  <<: *default
+production:
+  host: 'https://vpc-startups-note-4dpozcfpdgaggh6nibazdqv4mi.ap-northeast-1.es.amazonaws.com'
+  port: 443
