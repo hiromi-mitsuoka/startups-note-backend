@@ -9,6 +9,7 @@ gem 'bootsnap', '>= 1.4.4', require: false # Reduces boot times through caching;
 gem 'delayed_job_active_record' # job quere : https://github.com/collectiveidea/delayed_job
 gem 'elasticsearch-model' # https://github.com/elastic/elasticsearch-rails
 gem 'elasticsearch-rails'
+gem 'elasticsearch', '7.10.1' # To match the version to aws and terraform.
 gem 'feedjira' # rss : https://github.com/feedjira/feedjira
 gem 'hotwire-rails' # https://github.com/hotwired
 gem 'httparty' # feedjiraのバージョンアップにより追加
