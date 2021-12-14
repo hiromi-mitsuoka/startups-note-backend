@@ -1,24 +1,5 @@
-# # FROM : ベースとなるDockerImageを指定
+# FROM : ベースとなるDockerImageを指定
 FROM ruby:2.7.1
-
-# # RUN : Docker内でコマンド実行
-# # コンテナへ依存するライブラリやパッケージのインストールやユーザーの設定などの処理を実行
-# RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
-#   && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-
-# # apt-get [スイッチ] [オプション] [パッケージ] : Debian系のディストリビューション（DebianやUbuntu）のパッケージ管理システムであるAPT(Advanced Package Tool)ライブラリを利用してパッケージの操作・管理を行うLinuxコマンド
-# # オプション -qq : エラー以外は表示しない( http://www.ne.jp/asahi/it/life/it/linux/linux_command/linux_apt-get.html )
-# RUN apt-get update -qq && apt-get install -y nodejs yarn
-# # credentials:editを利用するためにvimをdockerに追加
-# RUN apt-get install -y vim
-# RUN mkdir /startups
-# WORKDIR /startups
-
-# # COPY [ホスト側のディレクトリ]　[Docker側のディレクトリ] : Docker内へホストのファイル・ディレクトリをコピー( https://y-ohgi.com/introduction-docker/2_component/dockerfile/#copy )
-# COPY Gemfile /startups/Gemfile
-# COPY Gemfile.lock /startups/Gemfile.lock
-# RUN bundle install
-# COPY . /startups
 
 # COPY entrypoint.sh /usr/bin/
 
@@ -44,6 +25,11 @@ FROM ruby:2.7.1
 # # RUN mkdir -p tmp/pids
 
 ENV LANG C.UTF-8
+
+# RUN : Docker内でコマンド実行
+# コンテナへ依存するライブラリやパッケージのインストールやユーザーの設定などの処理を実行
+# # apt-get [スイッチ] [オプション] [パッケージ] : Debian系のディストリビューション（DebianやUbuntu）のパッケージ管理システムであるAPT(Advanced Package Tool)ライブラリを利用してパッケージの操作・管理を行うLinuxコマンド
+# # オプション -qq : エラー以外は表示しない( http://www.ne.jp/asahi/it/life/it/linux/linux_command/linux_apt-get.html )
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
 
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
@@ -60,6 +46,7 @@ ENV APP_PATH /startups
 RUN mkdir $APP_PATH
 WORKDIR $APP_PATH
 
+# COPY [ホスト側のディレクトリ]　[Docker側のディレクトリ] : Docker内へホストのファイル・ディレクトリをコピー( https://y-ohgi.com/introduction-docker/2_component/dockerfile/#copy )
 ADD Gemfile $APP_PATH/Gemfile
 ADD Gemfile.lock $APP_PATH/Gemfile.lock
 
@@ -68,8 +55,5 @@ RUN bundle install
 
 ADD . $APP_PATH
 
+# Nginxと通信
 RUN mkdir -p tmp/sockets
-
-# CHECK: frontのために3000番ポート開けておく、MEMO: 両方開けることはできなかった
-# EXPOSE 3000
-# CMD ["rails", "server" , "-b", "0.0.0.0"]

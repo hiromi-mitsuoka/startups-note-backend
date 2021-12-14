@@ -41,7 +41,6 @@ services:
       - startups_mysql:/var/lib/mysql
   web: # TODO: 名前変更
     build: .
-    # command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'" && bundle exec puma -C config/puma.rb # 両方繋ぐことを試みる（frontへのapiで3000port開けている）: 両方繋がらず
     # command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'" # 3000portのみ
     command: bundle exec puma -C config/puma.rb # nginxとソケット通信のみ
     volumes:
@@ -73,6 +72,21 @@ services:
     volumes:
       - startups_redis:/data
     command: redis-server --appendonly yes
+#  nextjs:
+#    build:
+#      context: ../frontend
+#      dockerfile: Dockerfile
+#    volumes:
+#      - nextjs:/usr/src/app
+#    ports:
+#      - 3000:3000
+#    stdin_open: true
+#    tty: true
+#    restart: always
+#    environment:
+#      - CHOKIDAR_USEPOLLING=true # Hot Reload but not move
+#    command: yarn dev
+
 
 # volume : コンテナのライフサイクルが終了した後でもデータを保管しておける領域
 # 名前をつけて定義 ( https://www.ogis-ri.co.jp/otc/hiroba/technical/docker/part4.html )
@@ -83,3 +97,4 @@ volumes:
   public-data:
   tmp-data:
   log-data:
+  nextjs:
