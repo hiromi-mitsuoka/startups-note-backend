@@ -76,6 +76,8 @@ services:
 #    build:
 #      context: ../frontend
 #      dockerfile: Dockerfile
+#    hostname: nextjs
+#    working_dir: /usr/src/app
 #    volumes:
 #      - nextjs:/usr/src/app
 #    ports:
@@ -86,6 +88,19 @@ services:
 #    environment:
 #      - CHOKIDAR_USEPOLLING=true # Hot Reload but not move
 #    command: yarn dev
+#  front_nginx:
+#    build:
+#      context: ../frontend/nginx
+#      dockerfile: Dockerfile
+##    volumes:
+##      - ./conf.d:/etc/nginx/conf.d
+#    ports:
+#      - 81:81
+##    depends_on:
+##      - nextjs
+#    links:
+#      - nextjs
+
 
 
 # volume : コンテナのライフサイクルが終了した後でもデータを保管しておける領域
@@ -97,4 +112,4 @@ volumes:
   public-data:
   tmp-data:
   log-data:
-  nextjs:
+#  nextjs:
