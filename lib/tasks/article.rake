@@ -22,15 +22,22 @@ namespace :article do
 
           # 記事によっては、タグの名前が変わる可能性あり
           # NOTE: techcrunchとnews.crunchbaseは変更する必要なかった。
-          article = Article.new(
-            medium_id: medium.id,
-            title: f.title,
-            url: f.url,
-            image: f.image,
-            published: f.published,
-            categories: f.categories,
-          )
-          articles << article
+          begin
+            # To ensure that there are not zero cases of incomplete news.
+            article = Article.new(
+              medium_id: medium.id,
+              title: f.title,
+              url: f.url,
+              image: f.image,
+              published: f.published,
+              categories: f.categories,
+            )
+            articles << article
+          rescue => e
+            # TODO: logger.errorに変更する
+            p e.message
+            p article&.title if article.title.present?
+          end
         end
       end
       # bulk_insert

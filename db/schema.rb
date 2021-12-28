@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2021_12_12_041432) do
     t.string "url"
     t.string "image"
     t.date "published"
-    t.string "categories", limit: 512
+    t.text "categories"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "deleted_at"
