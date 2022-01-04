@@ -13,3 +13,11 @@
  *= require_tree .
  *= require_self
  */
+
+.logical__deleted {
+  opacity: 0.4;
+}
+
+.pointer {
+  cursor: pointer;
+}

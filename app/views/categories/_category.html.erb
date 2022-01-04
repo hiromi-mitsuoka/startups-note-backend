@@ -1,0 +1,20 @@
+<% @categories.each do |category| %>
+  <%# flex box: https://developer.mozilla.org/ja/docs/Web/CSS/justify-content, https://developer.mozilla.org/ja/docs/Web/CSS/align-items %>
+  <div  style="
+    width: 90%;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap
+  "
+    class="<%= "logical__deleted" unless category.deleted_at.nil? %>"
+  >
+    <p><%= link_to "#{category.name}", category_path(category) %> (<%= category.used_articles %>)</p>
+    <% if category.deleted_at.nil? %>
+      <%= button_to "非表示", category_path(category), method: :delete, class: "pointer" %>
+    <% else %>
+      <%= button_to "表示", category_path(category), method: :delete, class: "pointer" %>
+    <% end %>
+  </div>
+<% end %>

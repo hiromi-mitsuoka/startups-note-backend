@@ -1,0 +1,26 @@
+<%# https://railsguides.jp/layouts_and_rendering.html#%E3%82%B3%E3%83%AC%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%92%E3%83%AC%E3%83%B3%E3%83%80%E3%83%AA%E3%83%B3%E3%82%B0%E3%81%99%E3%82%8B %>
+<%# No block needed %>
+
+<%# @articles.each do |article| %>
+  <div style="
+    width: 45%;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+    word-break: break-all;
+  "
+    class="<%= "logical__deleted" unless article.deleted_at.nil? %>"
+  >
+    <h4><%= link_to article.title, article.url %></h4>
+    <%# <img src=<%= article.image%><br />
+    <%= article.published %><br />
+    <%#= article.categories %><br />
+    <%= article.medium.name %><br />
+    <% if article.deleted_at.nil? %>
+      <%= button_to "非表示", article_path(article.id), method: :delete, class: "pointer" %>
+    <% else %>
+      <%= button_to "表示", article_path(article.id), method: :delete, class: "pointer" %>
+    <% end %>
+  </div>
+<%# end %>
