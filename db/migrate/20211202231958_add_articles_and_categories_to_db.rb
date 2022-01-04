@@ -20,8 +20,10 @@ class AddArticlesAndCategoriesToDb < ActiveRecord::Migration[6.1]
       )
     end
     Rake::Task['article:crawl'].invoke # 記事を取得
-    Rake::Task['category:extract'].invoke # 重複なくカテゴリーを抽出
-    Rake::Task['category:check_used_articles'].invoke # カテゴリーの使用回数を更新
+
+    # Move the following two commands to avoid errors
+    # Rake::Task['category:extract'].invoke # 重複なくカテゴリーを抽出
+    # Rake::Task['category:check_used_articles'].invoke # カテゴリーの使用回数を更新
   end
 
   def down
