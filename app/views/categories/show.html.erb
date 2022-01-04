@@ -2,5 +2,9 @@
 <p>name: <%= @category.name %></p>
 <p>Number of articles: <%= @category.used_articles %></p>
 <p>Number of searches: <%= @category.used_query %></p>
-<%= button_to "No display", "/categories/#{@category.id}/destroy", method: :delete %>
+<% if @category.deleted_at.nil? %>
+  <%= button_to "No display", category_path(@category), method: :delete, class: "pointer" %>
+<% else %>
+  <%= button_to "Display", category_path(@category), method: :delete, class: "pointer" %>
+<% end %>
 <%= link_to "Return", articles_path %>

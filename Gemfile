@@ -15,6 +15,7 @@ gem 'hotwire-rails' # https://github.com/hotwired
 gem 'httparty' # feedjiraのバージョンアップにより追加
 gem 'importmap-rails' # https://github.com/rails/importmap-rails
 gem 'jbuilder', '~> 2.7' # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem 'kaminari' # https://github.com/kaminari/kaminari
 gem 'mysql2', '~> 0.5' # Use mysql as the database for Active Record
 gem 'paranoia' # https://github.com/rubysherpas/paranoia
 gem 'puma', '~> 5.0' # Use Puma as the app server

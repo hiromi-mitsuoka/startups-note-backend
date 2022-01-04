@@ -13,14 +13,22 @@
     class="<%= "logical__deleted" unless article.deleted_at.nil? %>"
   >
     <h4><%= link_to article.title, article.url %></h4>
-    <%# <img src=<%= article.image%><br />
-    <%= article.published %><br />
-    <%#= article.categories %><br />
-    <%= article.medium.name %><br />
-    <% if article.deleted_at.nil? %>
-      <%= button_to "非表示", article_path(article.id), method: :delete, class: "pointer" %>
-    <% else %>
-      <%= button_to "表示", article_path(article.id), method: :delete, class: "pointer" %>
-    <% end %>
+    <%# <img src=<%= article.image%>
+    <div  style="
+      padding: 0 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap
+    ">
+      <%= article.published %>
+      <%#= article.categories %>
+      <%= article.medium.name %>
+      <% if article.deleted_at.nil? %>
+        <%= button_to "No display", article_path(article.id), method: :delete, class: "pointer" %>
+      <% else %>
+        <%= button_to "Display", article_path(article.id), method: :delete, class: "pointer" %>
+      <% end %>
+    </div>
   </div>
 <%# end %>
