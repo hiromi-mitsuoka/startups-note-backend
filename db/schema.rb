@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_08_060206) do
+ActiveRecord::Schema.define(version: 2022_01_10_030134) do
 
   create_table "articles", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "medium_id"
@@ -28,8 +28,8 @@ ActiveRecord::Schema.define(version: 2022_01_08_060206) do
 
   create_table "auth_providers", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.string "provider"
-    t.string "uid"
+    t.string "provider", null: false
+    t.string "uid", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id", "uid"], name: "index_auth_providers_on_user_id_and_uid", unique: true
@@ -44,6 +44,18 @@ ActiveRecord::Schema.define(version: 2022_01_08_060206) do
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "deleted_at"
     t.index ["deleted_at"], name: "index_categories_on_deleted_at"
+  end
+
+  create_table "comments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "article_id", null: false
+    t.string "uid", null: false
+    t.text "text", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["article_id"], name: "index_comments_on_article_id"
+    t.index ["user_id", "article_id"], name: "index_comments_on_user_id_and_article_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "delayed_jobs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -79,4 +91,6 @@ ActiveRecord::Schema.define(version: 2022_01_08_060206) do
   end
 
   add_foreign_key "auth_providers", "users"
+  add_foreign_key "comments", "articles"
+  add_foreign_key "comments", "users"
 end
