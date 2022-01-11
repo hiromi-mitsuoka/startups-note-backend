@@ -70,7 +70,23 @@ namespace :category do
     end
     p "DONE"
   end
+
+  # Categoriesテーブルに存在するカテゴリーでESに検索をかけ、そのcountをused_articlesに保存する
+  desc "Check used_articles count with Elasticsearch"
+  task check_used_articles_with_es: :environment do
+    ActiveRecord::Base.transaction do
+      # 既存のused_articles数をリセットする
+      Category.all.each do |category|
+        category.used_articles = Article.es_search(category.name).to_a.count
+        category.save
+      end
+    rescue => e
+      p e.message
+    end
+    p "DONE"
+  end
 end
+
 
 # 実行コマンド :
 # bundle exec rake category:extract

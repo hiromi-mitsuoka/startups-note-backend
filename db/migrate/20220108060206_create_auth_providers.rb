@@ -2,8 +2,8 @@ class CreateAuthProviders < ActiveRecord::Migration[6.1]
   def up
     create_table :auth_providers do |t|
       t.references :user, null: false, foreign_key: true
-      t.string :provider
-      t.string :uid
+      t.string :provider, null: false
+      t.string :uid, null: false
 
       t.timestamps
     end
@@ -15,8 +15,8 @@ class CreateAuthProviders < ActiveRecord::Migration[6.1]
 
     drop_table :auth_providers do |t|
       t.references :user, null: false, foreign_key: true
-      t.string :provider
-      t.string :uid
+      t.string :provider, null: false
+      t.string :uid, null: false
 
       t.timestamps
     end

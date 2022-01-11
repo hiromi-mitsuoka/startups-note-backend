@@ -22,14 +22,18 @@ class ArticlesController < ApplicationController
 
   def destroy
     # https://ccbaxy.xyz/blog/2021/01/31/ruby62/#todonoxue-chu-moshi-zhuang
+
+    # NOTE: To avoid deleting Elasticsearch documents, do not use destroy.
     if @article.deleted_at.nil?
-      if @article.destroy # Logical delete
+      # if @article.destroy # Logical delete
+      if @article.update(deleted_at: Time.now)
         respond_to do |format|
           format.html { redirect_to articles_path, notice: "Successfully deleted.", status: :see_other }
         end
       end
     else
-      if @article.restore # Restore from logical delete
+      # if @article.restore # Restore from logical delete
+      if @article.update(deleted_at: nil)
         respond_to do |format|
           format.html { redirect_to articles_path, notice: "Successfully restored.", status: :see_other }
         end
