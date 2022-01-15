@@ -17,7 +17,7 @@ module ArticlesSearchable
         # For aggregations https://qiita.com/yamashun/items/e1f2157e1b3cf3a716e3
         indexes :medium_id, type: 'integer'
         # indexes :medium_name, type: 'keyword'
-        indexes :title, type: 'keyword'
+        indexes :title, type: 'text', analyzer: 'kuromoji'
         indexes :url, type: 'keyword'
         indexes :image, type: 'keyword'
         indexes :published, type: 'date'
@@ -54,6 +54,7 @@ module ArticlesSearchable
     end
 
     def es_search(query)
+      # This query can remove deleted articles.
       __elasticsearch__.search({
         size: 100,
         query: {
@@ -73,7 +74,7 @@ module ArticlesSearchable
         size: 100,
         query: {
           match: {
-            deleted_at: 'NULL' # 論理削除していないarticleを取得
+            deleted_at: 'NULL' # Only not deleted articles
           }
         },
         sort: [
