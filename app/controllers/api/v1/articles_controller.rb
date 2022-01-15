@@ -8,7 +8,6 @@ class Api::V1::ArticlesController < Api::ApplicationController
                  Article.es_search(search_query).records
                else
                  Article.es_search_all.records # set to max 100 using size query.
-                # Article.all.order(id: :desc)
                end
 
     render json: articles
