@@ -2,7 +2,6 @@ class Api::V1::ArticlesController < Api::ApplicationController
   before_action :set_article, only: %i[show]
 
   def index
-    # TODO: Get from Elasticsearch without search.
     # TODO: redis設定する
     articles = if search_query.present?
                  Article.es_search(search_query).records
