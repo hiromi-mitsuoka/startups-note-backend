@@ -7,10 +7,12 @@ class Api::V1::ArticlesController < Api::ApplicationController
     articles = if search_query.present?
                  Article.es_search(search_query).records
                else
-                 Article.all.order(id: :desc)
+                 Article.es_search_all.records # set to max 100 using size query.
+                # Article.all.order(id: :desc)
                end
 
     render json: articles
+    # render json: articles, serializer: Ap1::V1::ArticleSerializer: not move
   end
 
   def show

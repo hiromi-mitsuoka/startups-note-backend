@@ -5,6 +5,7 @@ ruby '2.7.1'
 
 gem 'active_decorator' # https://github.com/amatsuda/active_decorator
 gem 'activerecord-import' # bulk insert : https://github.com/zdennis/activerecord-import
+gem 'active_model_serializers' # https://github.com/rails-api/active_model_serializers/tree/0-10-stable
 gem 'bootsnap', '>= 1.4.4', require: false # Reduces boot times through caching; required in config/boot.rb
 gem 'delayed_job_active_record' # job quere : https://github.com/collectiveidea/delayed_job
 gem 'elasticsearch-model' # https://github.com/elastic/elasticsearch-rails

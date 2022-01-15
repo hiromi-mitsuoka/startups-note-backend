@@ -13,23 +13,25 @@ module ArticlesSearchable
     settings do
       mappings dynamic: 'false' do
         indexes :id, type: 'integer'
-        indexes :medium_name, type: 'keyword'
+        # NOTE: Test to count used_articles but now count articles with media.
+        # For aggregations https://qiita.com/yamashun/items/e1f2157e1b3cf3a716e3
+        indexes :medium_id, type: 'integer'
+        # indexes :medium_name, type: 'keyword'
         indexes :title, type: 'keyword'
         indexes :url, type: 'keyword'
         indexes :image, type: 'keyword'
         indexes :published, type: 'date'
         indexes :categories, type: 'text', analyzer: 'kuromoji'
-        # indexes :created_at, type: 'date'
-        # indexes :updated_at, type: 'date'
-        # indexes :deleted_at, type: 'date'
+        # For null search.(need to be keyword) https://github.com/elastic/elasticsearch-rails/issues/458
+        indexes :deleted_at, type: 'keyword', null_value: 'NULL'
       end
     end
 
     def as_indexed_json(*)
       attributes
         .symbolize_keys
-        .slice(:id, :title, :url, :image, :published, :categories)
-        .merge(medium_name: medium_name)
+        .slice(:id, :medium_id, :title, :url, :image, :published, :categories, :deleted_at) # NOTE: mapping information will not be synchronized.
+        # .merge(medium_name: medium_name)
     end
   end
 
@@ -53,21 +55,58 @@ module ArticlesSearchable
 
     def es_search(query)
       __elasticsearch__.search({
-                                 query: {
-                                   multi_match: { # https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-multi-match-query.html
-                                                  # TODO: 重み付けをしたい
-                                                  fields: %i(title^3 categories medium_name),
-                                                  type: 'cross_fields', # https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-multi-match-query.html#type-cross-fields
-                                                  query: query,
-                                                  operator: 'or',
-                                   }
-                                 }
-                               })
+        size: 100,
+        query: {
+          multi_match: { # https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-multi-match-query.html
+            # TODO: 重み付けをしたい
+            fields: %i(title^3 categories medium_name),
+            type: 'cross_fields', # https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-multi-match-query.html#type-cross-fields
+            query: query,
+            operator: 'or',
+          },
+        }
+      })
+    end
+
+    def es_search_all
+      __elasticsearch__.search({
+        size: 100,
+        query: {
+          match: {
+            deleted_at: 'NULL' # 論理削除していないarticleを取得
+          }
+        },
+        sort: [
+          {
+            id: "desc"
+          }
+        ]
+      })
+    end
+
+    def count_articles_from_media
+      __elasticsearch__.search({
+        size: 100,
+        query: {
+          match: {
+            deleted_at: 'NULL' # 論理削除していないarticleを取得
+          }
+        },
+        aggs: {
+          media: {
+            terms: {
+              field: "medium_id",
+              size: 100
+            }
+          }
+        }
+      })
     end
   end
 end
 
 # Webコンテナでの操作
+# NOTE: in rails c , and use reload! command
 
 # Elasticsearchとの接続確認
 # Article.__elasticsearch__.client.cluster.health
