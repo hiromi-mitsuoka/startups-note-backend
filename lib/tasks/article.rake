@@ -35,8 +35,8 @@ namespace :article do
             articles << article
           rescue => e
             # TODO: logger.errorに変更する
-            p e.message
-            p article&.title if article.title.present?
+            Rails.logger.error(e.message)
+            Rails.logger.error(article&.title) if article.title.present?
           end
         end
       end
@@ -44,11 +44,13 @@ namespace :article do
       columns = %i[id medium_id title url image published categories]
       Article.import columns, articles
       # Article.delay.import columns, articles
-      p "Imported #{articles.size} articles"
+      p "===== Imported #{articles.size} articles ====="
+      Rails.logger.info("===== Imported #{articles.size} articles =====")
     rescue => e
-      p e.message
+      Rails.logger.error(e.message)
     end
-    p "DONE"
+    p "===== DONE article:crawl ====="
+    Rails.logger.info("===== DONE article:crawl =====")
   end
 
   # 新しく入る記事のみカテゴリの使用回数をカウントアップ
@@ -78,7 +80,8 @@ namespace :article do
       # bulk_insert
       columns = %i[id medium_id title url image published categories]
       Article.import columns, articles
-      p "Imported #{articles.size} new articles"
+      p "===== Imported #{articles.size} new articles ====="
+      Rails.logger.info("===== Imported #{articles.size} new articles =====")
 
       # categories
       tmp_categories = []
@@ -114,11 +117,25 @@ namespace :article do
       # bulk_insert
       columns = %i[id name used_query used_articles]
       Category.import columns, insert_categories
-      p "Imported #{insert_categories.size} new categories"
+      p "===== Imported #{insert_categories.size} new categories ====="
+      Rails.logger.info("===== Imported #{insert_categories.size} new categories =====")
     rescue => e
-      p e.message
+      Rails.logger.error(e.message)
     end
-    p "DONE"
+    p "===== DONE article:crawl_and_extract_categories ====="
+    Rails.logger.info("===== DONE article:crawl_and_extract_categories =====")
+  end
+
+
+  # ECS Scheduled Tasks
+  desc "Get articles and count used_articles of categories"
+  task get_articles_count_used_categories: :environment do
+    Rake::Task['article:crawl'].invoke # 記事を取得
+    Rake::Task['category:extract'].invoke # 重複なくカテゴリーを抽出
+    Rake::Task['category:check_used_articles'].invoke # カテゴリーの使用回数を更新
+    Rake::Task['category:check_used_articles_with_es'].invoke # ESのヒット数で記事数を更新する（TODO: remove the above command but the rake task needs to be adjusted.）
+    p "===== #{Time.now}: DONE article:get_articles_count_used_categories ====="
+    Rails.logger.info("===== #{Time.now}: DONE article:get_articles_count_used_categories =====")
   end
 end
 
