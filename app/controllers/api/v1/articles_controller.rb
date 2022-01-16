@@ -10,7 +10,7 @@ class Api::V1::ArticlesController < Api::ApplicationController
                end
 
     render json: articles
-    # render json: articles, serializer: Ap1::V1::ArticleSerializer: not move
+    # render json: articles, serializer: Api::V1::ArticleSerializer: not move
   end
 
   def show
