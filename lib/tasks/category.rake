@@ -28,11 +28,13 @@ namespace :category do
 
       columns = %i[id name used_query used_articles]
       Category.import columns, insert_categories
-      p "Imported #{insert_categories.size} categories"
+      p "===== Imported #{insert_categories.size} categories ====="
+      Rails.logger.info("===== Imported #{insert_categories.size} categories =====")
     rescue => e
-      p e.message
+      Rails.logger.error(e.message)
     end
-    p "DONE"
+    p "===== DONE category:extract ====="
+    Rails.logger.info("===== DONE category:extract =====")
   end
 
   # TODO: 月1のメンテナンスとかでカテゴリの使用回数のチェックを行うscheduleの作成
@@ -66,9 +68,10 @@ namespace :category do
         end
       end
     rescue => e
-      p e.message
+      Rails.logger.error(e.message)
     end
-    p "DONE"
+    p "===== DONE category:check_used_articles ====="
+    Rails.logger.info("===== DONE category:check_used_articles =====")
   end
 
   # Categoriesテーブルに存在するカテゴリーでESに検索をかけ、そのcountをused_articlesに保存する
@@ -81,9 +84,10 @@ namespace :category do
         category.save
       end
     rescue => e
-      p e.message
+      Rails.logger.error(e.message)
     end
-    p "DONE"
+    p "===== DONE category:check_used_articles_with_es ====="
+    Rails.logger.info("===== DONE category:check_used_articles_with_es =====")
   end
 end
 
