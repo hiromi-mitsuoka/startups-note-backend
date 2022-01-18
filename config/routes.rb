@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   root "articles#index"
   resources :articles, only: %i[index destroy]
-  resources :categories, only: %i[show destroy]
+  resources :categories, only: %i[index show destroy]
+  resources :media, only: %i[index new create edit update destroy]
 
   # 後ほどファイル分割
   namespace :api do

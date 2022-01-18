@@ -1,0 +1,26 @@
+<div>
+  <div class="row">
+    <div class="col-6">
+      <h2>Media</h2>
+    </div>
+    <div class="col d-grid gap-2 d-md-flex justify-content-md-end">
+      <%# <button class="btn btn-success" type="button">Create</button> %>
+    </div>
+  </div>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @media.each do |medium| %>
+      <tr>
+        <th scope="row"><%= medium.id %></th>
+        <td><%= link_to "#{medium.name}", medium.url, target: :_blank, rel: "noopener noreferrer", class: "link-dark" %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

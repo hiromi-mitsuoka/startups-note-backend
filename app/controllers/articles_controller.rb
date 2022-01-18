@@ -3,11 +3,8 @@ class ArticlesController < ApplicationController
 
   def index
     # page(params[:~~_page]): https://github.com/kaminari/kaminari#changing-the-parameter-name-param_name-for-the-links
-    @categories = Category.with_deleted.order(used_articles: "DESC").page(params[:categories_page]).per(40)
-    @media = Medium.all
-    # redis設定する
+    @articles = Article.with_deleted.eager_load(:medium).order(published: :desc).page(params[:articles_page]).per(20)
 
-    @articles = Article.with_deleted.eager_load(:medium).order(id: :desc).page(params[:articles_page]).per(30)
     # 後々Elasticsearch削除。ransack導入
     # @articles = if search_query.present?
     #               Article.es_search(search_query).records
@@ -43,9 +40,9 @@ class ArticlesController < ApplicationController
 
   private
 
-  def search_query
-    @search_query ||= params[:search_query]
-  end
+  # def search_query
+  #   @search_query ||= params[:search_query]
+  # end
 
   def set_article
     @article = Article.with_deleted.find_by(id: params[:id])

@@ -36,3 +36,6 @@ terraform.tfstate.backup
 
 # Ignore because exceeds file size for git push
 /terraform/.terraform/providers/*
+
+# Ignore node_modules
+node_modules
