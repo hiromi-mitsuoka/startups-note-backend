@@ -7,6 +7,7 @@ gem 'active_decorator' # https://github.com/amatsuda/active_decorator
 gem 'activerecord-import' # bulk insert : https://github.com/zdennis/activerecord-import
 gem 'active_model_serializers' # https://github.com/rails-api/active_model_serializers/tree/0-10-stable
 gem 'bootsnap', '>= 1.4.4', require: false # Reduces boot times through caching; required in config/boot.rb
+gem 'bootstrap', '~> 5.1.3' # https://github.com/twbs/bootstrap-rubygem
 gem 'delayed_job_active_record' # job quere : https://github.com/collectiveidea/delayed_job
 gem 'elasticsearch-model' # https://github.com/elastic/elasticsearch-rails
 gem 'elasticsearch-rails'
@@ -24,6 +25,7 @@ gem 'rack-cors' # https://github.com/cyu/rack-cors
 gem 'rails', '~> 6.1.4', '>= 6.1.4.1' # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'redis', '~> 4.0' # Use Redis adapter to run Action Cable in production
 gem 'sass-rails', '>= 6' # Use SCSS for stylesheets
+gem 'sassc-rails' # https://github.com/sass/sassc-rails
 gem 'turbo-rails', '~> 0.8' # ECSで、Could not find turbo-rails-7.1.1発生のため指定。bundle update turbo-railsで対応
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
