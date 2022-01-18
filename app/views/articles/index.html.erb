@@ -27,7 +27,7 @@
         <% @articles.each do |article| %>
         <tr>
           <th scope="row"><%= article.id %></th>
-          <td><%= link_to "#{article.title}", article_path(article), class: "link-dark" %></td>
+          <td><%= link_to article.title, article.url, target: :_blank, rel: "noopener noreferrer", class: "link-dark" %></td>
           <td><%= article.published %></td>
           <td><%= article.medium.name %></td>
           <td>

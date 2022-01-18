@@ -3,7 +3,7 @@ class ArticlesController < ApplicationController
 
   def index
     # page(params[:~~_page]): https://github.com/kaminari/kaminari#changing-the-parameter-name-param_name-for-the-links
-    @articles = Article.with_deleted.eager_load(:medium).order(id: :desc).page(params[:articles_page]).per(20)
+    @articles = Article.with_deleted.eager_load(:medium).order(published: :desc).page(params[:articles_page]).per(20)
 
     # 後々Elasticsearch削除。ransack導入
     # @articles = if search_query.present?
