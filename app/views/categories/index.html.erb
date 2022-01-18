@@ -1,24 +1,32 @@
 <div>
   <h2>Tags (<%= total_categories %>)</h2>
-  <% @categories.each do |category| %>
-    <%# flex box: https://developer.mozilla.org/ja/docs/Web/CSS/justify-content, https://developer.mozilla.org/ja/docs/Web/CSS/align-items %>
-    <div  style="
-      width: 90%;
-      padding: 0 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap
-    "
-      class="<%= "logical__deleted" unless category.deleted_at.nil? %>"
-    >
-      <p><%= link_to "#{category.name}", category_path(category) %> (<%= category.used_articles %>)</p>
-      <% if category.deleted_at.nil? %>
-        <%= button_to "No display", category_path(category), method: :delete, class: "pointer" %>
-      <% else %>
-        <%= button_to "Display", category_path(category), method: :delete, class: "pointer" %>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Name</th>
+        <th scope="col">used</th>
+        <th scope="col">Display</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @categories.each do |category| %>
+      <tr>
+        <th scope="row"><%= category.id %></th>
+        <td><%= link_to "#{category.name}", category_path(category), class: "link-dark" %></td>
+        <td><%= category.used_articles %></td>
+        <td>
+          <% if category.deleted_at.nil? %>
+            <%= button_to "ON", category_path(category), method: :delete, class: "pointer btn btn-success" %>
+          <% else %>
+            <%= button_to "OFF", category_path(category), method: :delete, class: "pointer btn btn-secondary", style: "opacity: 0.3;" %>
+          <% end %>
+        </td>
+      </tr>
       <% end %>
-    </div>
-  <% end %>
-  <%= paginate @categories, window: 2, :param_name => 'categories_page' %>
+    </tbody>
+  </table>
+  <div class="d-flex align-items-center justify-content-center">
+    <%= paginate @categories, window: 2, :param_name => 'categories_page' %>
+  </div>
 </div>

@@ -13,13 +13,35 @@
 
   <div style="width: 100%">
     <h2>Articles (<%= total_articles %>)</h2>
-    <div style="width: 100%; display: flex; justify-content: space-between; flex-wrap: wrap">
-      <%= render partial: "article", collection: @articles %>
-    </div>
-    <div style="
-      display: flex;
-      justify-content: center;
-    ">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Title</th>
+          <th scope="col">Date</th>
+          <th scope="col">media</th>
+          <th scope="col">Display</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @articles.each do |article| %>
+        <tr>
+          <th scope="row"><%= article.id %></th>
+          <td><%= link_to "#{article.title}", article_path(article), class: "link-dark" %></td>
+          <td><%= article.published %></td>
+          <td><%= article.medium.name %></td>
+          <td>
+            <% if article.deleted_at.nil? %>
+              <%= button_to "ON", article_path(article), method: :delete, class: "pointer btn btn-success" %>
+            <% else %>
+              <%= button_to "OFF", article_path(article), method: :delete, class: "pointer btn btn-secondary", style: "opacity: 0.3;" %>
+            <% end %>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <div class="d-flex align-items-center justify-content-center">
       <%= paginate @articles, window: 2, :param_name => 'articles_page' %>
     </div>
   </div>

@@ -2,7 +2,7 @@ class CategoriesController < ApplicationController
   before_action :set_category, only: %i[show destroy]
 
   def index
-    @categories = Category.with_deleted.order(used_articles: "DESC").page(params[:categories_page]).per(40)
+    @categories = Category.with_deleted.order(used_articles: "DESC").page(params[:categories_page]).per(20)
   end
 
   def show

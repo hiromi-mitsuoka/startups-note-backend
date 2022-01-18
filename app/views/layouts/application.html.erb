@@ -16,12 +16,15 @@
 
     <div>
       <div class="row">
-        <div class="col-2">
+        <div class="col-2" style="padding-right: 0;">
           <%= render partial: 'layouts/sidebar' %>
         </div>
-        <div class="col-10" style="height: 100%; min-height: 100vh">
-          <%= yield %>
+        <div class="col-10 p-3" style="height: 100%; min-height: 100vh; padding-left: 0;">
+          <div class="container">
+            <%= yield %>
+          </div>
         </div>
       </div>
+    </div>
   </body>
 </html>

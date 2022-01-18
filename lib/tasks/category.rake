@@ -18,6 +18,8 @@ namespace :category do
       tmp_categories.uniq!
 
       tmp_categories.each do |category|
+        next if Category.find_by(name: category) # 既にDBに存在する場合はスキップ
+
         insert_category = Category.new(
           name: category,
           used_query: 0,
@@ -31,6 +33,7 @@ namespace :category do
       p "===== Imported #{insert_categories.size} categories ====="
       Rails.logger.info("===== Imported #{insert_categories.size} categories =====")
     rescue => e
+      p "===== Error Imported categories ====="
       Rails.logger.error(e.message)
     end
     p "===== DONE category:extract ====="
