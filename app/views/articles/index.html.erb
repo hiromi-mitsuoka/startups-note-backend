@@ -10,36 +10,17 @@
     <%# </div>
     <hr>
   </div> %>
-  <div style="display: flex; justify-content: space-between;">
-    <div style="width: 30%; padding-right: 10px;">
-      <div>
-        <h2>MEDIA</h2>
-        <%= render "medium/media", partial: "media", collection: @medium %>
-      </div>
-      <div>
-        <h2>Tags (<%= total_categories %>)</h2>
-        <div>
-          <%= render "categories/category", partial: "category", collection: @categories %>
-        </div>
-        <div style="
-          display: flex;
-          justify-content: center;
-        ">
-          <%= paginate @categories, window: 2, :param_name => 'categories_page' %>
-        </div>
-      </div>
+
+  <div style="width: 100%">
+    <h2>Articles (<%= total_articles %>)</h2>
+    <div style="width: 100%; display: flex; justify-content: space-between; flex-wrap: wrap">
+      <%= render partial: "article", collection: @articles %>
     </div>
-    <div style="width: 70%">
-      <h2>Articles (<%= total_articles %>)</h2>
-      <div style="width: 100%; display: flex; justify-content: space-between; flex-wrap: wrap">
-        <%= render partial: "article", collection: @articles %>
-      </div>
-      <div style="
-        display: flex;
-        justify-content: center;
-      ">
-        <%= paginate @articles, window: 2, :param_name => 'articles_page' %>
-      </div>
+    <div style="
+      display: flex;
+      justify-content: center;
+    ">
+      <%= paginate @articles, window: 2, :param_name => 'articles_page' %>
     </div>
   </div>
 </section>

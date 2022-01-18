@@ -1,0 +1,24 @@
+<div>
+  <h2>Tags (<%= total_categories %>)</h2>
+  <% @categories.each do |category| %>
+    <%# flex box: https://developer.mozilla.org/ja/docs/Web/CSS/justify-content, https://developer.mozilla.org/ja/docs/Web/CSS/align-items %>
+    <div  style="
+      width: 90%;
+      padding: 0 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap
+    "
+      class="<%= "logical__deleted" unless category.deleted_at.nil? %>"
+    >
+      <p><%= link_to "#{category.name}", category_path(category) %> (<%= category.used_articles %>)</p>
+      <% if category.deleted_at.nil? %>
+        <%= button_to "No display", category_path(category), method: :delete, class: "pointer" %>
+      <% else %>
+        <%= button_to "Display", category_path(category), method: :delete, class: "pointer" %>
+      <% end %>
+    </div>
+  <% end %>
+  <%= paginate @categories, window: 2, :param_name => 'categories_page' %>
+</div>
