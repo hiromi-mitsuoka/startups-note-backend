@@ -1,24 +1,17 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## 工夫した点
 
-Things you may want to cover:
+- RSSによるクローリング（Feedfira利用）の際に，
+  1. バルクインサート（activerecord-import）を使用したこと
+  2. ニュースに紐づくタグ情報も同時に取得し，DB内で紐づけて保存することで，タグによるフィルター検索を容易にしたこと．
+- 最初のサービス立ち上げ時にデータが自動的に入るよう，migrationファイルにrakeタスクの実行コマンドを仕込んだこと．
+- 管理者画面のRails単体のアプリケーションでも操作感を良くしたいと思い，Hotwireを使用し，一部SPA化したこと
 
-* Ruby version
+## 課題点
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- Active Model Serializerがうまく導入できず，APIに不必要な値まで返してしまっている．
+- APIコントローラーと，管理者用のRailsアプリケーションを分割（マイクロサービス化）したい．
+ - マイクロサービスアーキテクチャと相性が良く，APIコントローラーで十分なため，Goで実装できたら良さそう．
+- 提出締め切りまでギリギリを理由にRspecを書いていない
+- delayed_jobを導入できていない
